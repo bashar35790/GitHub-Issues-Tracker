@@ -99,61 +99,14 @@
             </div>
           </div>
 
-          <div class="p-6">
+          <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3" id="card-container">
             <!-- cards will be here  -->
-            <div class="w-fit space-y-3 shadow-2xl rounded-lg border-t-4 border-[#00A96E]">
-              <!-- card top  -->
-              <div class="p-6 space-y-3">
-                <!-- issue title and description will be here -->
-                <div class="flex justify-between">
-                  <img
-                    src="./assets/Open-Status.png"
-                    alt="Open Status"
-                    class="w-7 h-7 object-cover"
-                  />
-                  <div
-                    class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium"
-                  >
-                    HIGH
-                  </div>
-                </div>
-                <div class="space-y-2">
-                  <h2 class="text-xl font-semibold mt-2">
-                    Fix navigation menu on mobile devices
-                  </h2>
-                  <p class="text-[#64748B] mt-1">
-                    The navigation menu doesn't collapse properly on mobile
-                    devices...
-                  </p>
-                </div>
 
-                <!-- bug and help wanted tags will be here -->
-                <div class="flex justify-baseline gap-1 ">
-                  <div
-                    class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium"
-                  >
-                    <i class="fa-solid fa-bug"></i> BUG
-                  </div>
-                  <div
-                    class="bg-[#FFF8DB] px-6 py-1.5 rounded-full text-[#D97706] text-[12px] font-medium w-fit"
-                  >
-                    <i class="fa-solid fa-life-ring"></i> HELP WANTED
-                  </div>
-                </div>
-              </div>
-
-              <!-- divider and comment count will be here -->
-              <div class="divider"></div>
-              
-              <!-- bottom part of the card will be here  -->
-              <div class="p-6 space-y-3">
-                <p class="text-[#64748B] text-[12px] font-normal">#1 by john_doe</p>
-                <p class="text-[#64748B] text-[12px] font-normal">1/15/2024</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <script src="./dashboard-data.js"></script>
   </body>
 </html>
