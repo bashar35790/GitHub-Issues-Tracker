@@ -56,12 +56,13 @@
               Sign in to manage your issues
             </p>
           </div>
+          <!-- form fildset  -->
           <div class="w-full">
             <div class="card-body">
               <fieldset class="fieldset text-left space-y-3">
                 <div class="space-y-1">
                   <label class="label text-[#1F2937]">Username</label>
-                  <input
+                  <input id="userName"
                     type="text"
                     class="input"
                     placeholder="Enter your username"
@@ -70,7 +71,7 @@
                 </div>
                 <div>
                   <label class="label text-[#1F2937]">Password</label>
-                  <input
+                  <input id="password"
                     type="password"
                     class="input"
                     placeholder="Enter your password"
@@ -78,12 +79,23 @@
                   <p class="text-[14px] text-[#4A00FF]">Default: admin123</p>
                 </div>
 
-                <button class="btn btn-primary text-[#ffffff]">Login</button>
+                <button onclick="logIn()" class="btn btn-primary text-[#ffffff]">Login</button>
               </fieldset>
+
+              <!-- bottom divider and demo credentials -->
+              <div class="divider">Or</div>
+              <p>Demo Credentials:</p>
+              <p class="text-[14px] text-[#4A00FF]">
+                Username: admin<br />
+                Password: admin123
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
+    <script src="./index.js"></script>
   </body>
 </html>
