@@ -196,3 +196,27 @@ function displaySingleIssue(data) {
   
   `;
 }
+
+document.getElementById("input-search").addEventListener("keyup", () => {
+  const inputSearch = document.getElementById("input-search");
+  const searchTerm = inputSearch.value.trim().toLowerCase();
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues?search=${searchTerm}`;
+  manageSpinner(true);
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      const allIssues = data.data;
+      const filteredIssues = allIssues.filter((issue) =>
+        issue.title.toLowerCase().includes(searchTerm) ||
+        issue.description.toLowerCase().includes(searchTerm)
+      );
+      displayAllIssue(filteredIssues);
+      
+    })
+    .catch((error) => {
+      console.error("Error fetching search results:", error);
+    })
+    .finally(() => {
+      manageSpinner(false);
+    });
+});
