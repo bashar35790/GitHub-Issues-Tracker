@@ -39,7 +39,6 @@ Returns elements that match a condition
 Loops through an array
 Does not return a new array
 
-
 ### 4️⃣ What is an arrow function?
 
 An arrow function is a shorter way to write functions in JavaScript. It was introduced in ES6 and uses the => syntax.
@@ -64,6 +63,3 @@ Template literals are a way to create strings using backticks (`). They allow em
 Username: admin
 Password: admin123
 ```
-
-
-

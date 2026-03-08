@@ -69,11 +69,19 @@ function displayAllIssue(data) {
               <div class="p-6 space-y-3">
                 <!-- issue title and description will be here -->
                 <div class="flex justify-between">
-                  <img
+                ${
+                  status === "open"
+                    ? `<img
                     src="./assets/Open-Status.png"
                     alt="Open Status"
                     class="w-7 h-7 object-cover"
-                  />
+                  />`
+                    : `<img
+                    src="./assets/Close.png"
+                    alt="Closed Status"
+                    class="w-7 h-7 object-cover"
+                  />`
+                }
                   <div
                     class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium"
                   >
@@ -206,12 +214,12 @@ document.getElementById("input-search").addEventListener("keyup", () => {
     .then((res) => res.json())
     .then((data) => {
       const allIssues = data.data;
-      const filteredIssues = allIssues.filter((issue) =>
-        issue.title.toLowerCase().includes(searchTerm) ||
-        issue.description.toLowerCase().includes(searchTerm)
+      const filteredIssues = allIssues.filter(
+        (issue) =>
+          issue.title.toLowerCase().includes(searchTerm) ||
+          issue.description.toLowerCase().includes(searchTerm),
       );
       displayAllIssue(filteredIssues);
-      
     })
     .catch((error) => {
       console.error("Error fetching search results:", error);
