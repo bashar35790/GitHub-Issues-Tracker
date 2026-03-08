@@ -27,10 +27,19 @@ AllIssues();
 
 function displayIssue(data) {
   const cardContainer = document.getElementById("card-container");
-  console.log(data);
+  const numberOfIssues = document.getElementById("Number-of-issues");
+  numberOfIssues.innerText = `${data.length} Issues`;
   data.map((data) => {
-    const { title, description, status, labels, priority, author, createdAt } =
-      data;
+    const {
+      id,
+      title,
+      description,
+      status,
+      labels,
+      priority,
+      author,
+      createdAt,
+    } = data;
 
     cardContainer.innerHTML += `
             <div class="w-full space-y-3 shadow-2xl rounded-lg ${status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} border-t-4 ">
@@ -84,5 +93,21 @@ function displayIssue(data) {
             </div>
         
         `;
+    singleIssue(id);
+
   });
 }
+
+const singleIssue = async (id) => {
+  const res = await fetch(
+    `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
+  );
+  const data = await res.json();
+  displaySingleIssue(data.data);
+};
+
+const displaySingleIssue = (data) => {
+    console.log(data);
+
+}
+
