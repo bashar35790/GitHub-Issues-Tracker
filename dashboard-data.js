@@ -1,34 +1,43 @@
-// All issues object is here
-// {
-//     "id": 1,
-//     "title": "Fix navigation menu on mobile devices",
-//     "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-//     "status": "open",
-//     "labels": [
-//         "bug",
-//         "help wanted"
-//     ],
-//     "priority": "high",
-//     "author": "john_doe",
-//     "assignee": "jane_smith",
-//     "createdAt": "2024-01-15T10:30:00Z",
-//     "updatedAt": "2024-01-15T10:30:00Z"
-// }
-
-const AllIssues = async () => {
+const loadeAllIssues = async () => {
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
   const data = await res.json();
-  displayIssue(data.data);
+  displayAllIssue(data.data);
+  const All = document.getElementById("All");
+  const open = document.getElementById("open");
+  const closed = document.getElementById("closed");
+  const buttons = document.querySelectorAll("#filter-btns button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      buttons.forEach((btn) => btn.classList.remove("btn-primary"));
+      button.classList.add("btn-primary");
+    });
+  });
+
+  All.addEventListener("click", () => {
+    displayAllIssue(data.data);
+  });
+
+  open.addEventListener("click", () => {
+    const openIssues = data.data.filter((issue) => issue.status === "open");
+    displayAllIssue(openIssues);
+  });
+
+  closed.addEventListener("click", () => {
+    const closedIssues = data.data.filter((issue) => issue.status === "closed");
+    displayAllIssue(closedIssues);
+  });
 };
 
-AllIssues();
+loadeAllIssues();
 
-function displayIssue(data) {
+function displayAllIssue(data) {
   const cardContainer = document.getElementById("card-container");
   const numberOfIssues = document.getElementById("Number-of-issues");
   numberOfIssues.innerText = `${data.length} Issues`;
+  cardContainer.innerHTML = "";
+
   data.map((data) => {
     const {
       id,
@@ -42,7 +51,7 @@ function displayIssue(data) {
     } = data;
 
     cardContainer.innerHTML += `
-            <div class="w-full space-y-3 shadow-2xl rounded-lg ${status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} border-t-4 ">
+            <div class="w-full space-y-3 shadow-2xl rounded-lg ${status === "open" ? "border-[#00A96E]" : "border-[#A855F7]"} border-t-4 cursor-pointer" onclick="loadSingleIssue(${id})">
               <!-- card top  -->
               <div class="p-6 space-y-3">
                 <!-- issue title and description will be here -->
@@ -93,12 +102,10 @@ function displayIssue(data) {
             </div>
         
         `;
-    singleIssue(id);
-
   });
 }
 
-const singleIssue = async (id) => {
+const loadSingleIssue = async (id) => {
   const res = await fetch(
     `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`,
   );
@@ -106,8 +113,72 @@ const singleIssue = async (id) => {
   displaySingleIssue(data.data);
 };
 
-const displaySingleIssue = (data) => {
-    console.log(data);
+function displaySingleIssue(data) {
+  const { title, description, status, labels, priority, author, createdAt } =
+    data;
+  console.log(data);
+  const modalContainer = document.getElementById("modal-container");
+  const issue_modal = document.getElementById("issue_modal");
+  issue_modal.showModal();
+  modalContainer.innerHTML = `
+          <div class="space-y-2.5">
+            <h3 class="font-bold text-2xl">${title}</h3>
+            <div>
+              <div
+                class="text-[#64748B] text-[12px] font-normal flex items-center gap-2"
+              >
+                <p class="px-2 py-1 text-white ${status === "open" ? "bg-[#00A96E]" : "bg-[#A855F7]"} rounded-full">
+                  ${status}
+                </p>
+                <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
+                <p>Opened by ${author}</p>
+                <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
+                <p>${new Date(createdAt).toLocaleDateString()}</p>
+              </div>
+            </div>
+          </div>
 
+          <!-- buttons  -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <div
+              class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium flex items-center gap-1 w-fill"
+            >
+              <i class="fa-solid fa-bug"></i> ${labels[0]?.toUpperCase()}
+            </div>
+            <div
+              class="bg-[#FFF8DB] px-6 py-1.5 rounded-full text-[#D97706] text-[12px] font-medium flex items-center gap-1 w-fill"
+            >
+              <i class="fa-solid fa-life-ring"></i> ${labels[1]?.toUpperCase()}
+            </div>
+          </div>
+
+          <p class="text-[#64748B] text-[16px]">
+            ${description}
+          </p>
+
+          <div class="bg-[#F8FAFC] rounded-sm flex items-center p-4">
+            <div class="w-full">
+              <p class="text-[#64748B] text-[16px]">Assignee:</p>
+              <h3 class="text-[#1F2937] font-semibold text-[16px]">
+                ${data.assignee || "Unassigned"}
+              </h3>
+            </div>
+            <div class="w-full">
+              <p class="text-[#64748B] text-[16px]">Priority:</p>
+              <div
+                class="text-[12px] text-white font-medium rounded-lg bg-[#EF4444] text-center w-fit px-3 py-1"
+              >
+                ${priority.toUpperCase()}
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn btn-primary">Close</button>
+            </form>
+          </div>
+  
+  `;
 }
-
