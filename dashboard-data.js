@@ -50,6 +50,7 @@ function displayAllIssue(data) {
   const numberOfIssues = document.getElementById("Number-of-issues");
   numberOfIssues.innerText = `${data.length} Issues`;
   cardContainer.innerHTML = "";
+  console.log(data);
 
   data.map((data) => {
     const {
@@ -98,19 +99,33 @@ function displayAllIssue(data) {
                 </div>
 
                 <!-- bug and help wanted tags will be here -->
-                <div class="flex justify-baseline gap-1 flex-wrap">
-                  <div
-                    class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium flex items-center gap-1 w-fill"
-                  >
-                    <i class="fa-solid fa-bug"></i> ${labels[0]?.toUpperCase()}
-                  </div>
-                  <div
-                    class="bg-[#FFF8DB] px-6 py-1.5 rounded-full text-[#D97706] text-[12px] font-medium flex items-center gap-1 w-fill"
-                  >
-                    <i class="fa-solid fa-life-ring"></i> ${labels[1]?.toUpperCase()}
-                  </div>
-                </div>
-              </div>
+                <div class="flex gap-1 flex-wrap">
+
+                      ${
+                        labels[0]
+                          ? `
+                     <div
+                        class="bg-[#FEECEC] px-6 py-1.5 rounded-full text-[#EF4444] text-[12px] font-medium flex items-center gap-1"
+                      >
+                        <i class="fa-solid fa-bug"></i> ${labels[0].toUpperCase()}
+                      </div>
+                      `
+                          : ""
+                      }
+
+                      ${
+                        labels[1]
+                          ? `
+                      <div
+                        class="bg-[#FFF8DB] px-6 py-1.5 rounded-full text-[#D97706] text-[12px] font-medium flex items-center gap-1"
+                      >
+                        <i class="fa-solid fa-life-ring"></i> ${labels[1].toUpperCase()}
+                      </div>
+                      `
+                          : ""
+                      }
+
+                    </div>
 
               <!-- divider and comment count will be here -->
               <div class="divider"></div>
