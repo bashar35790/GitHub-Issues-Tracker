@@ -1,4 +1,17 @@
+const manageSpinner = (isLoading) => {
+  const loadingSection = document.getElementById("loading-section");
+  const cardContainer = document.getElementById("card-container");
+  if (isLoading) {
+    loadingSection.classList?.remove("hidden");
+    cardContainer.classList?.add("hidden");
+  } else {
+    loadingSection.classList?.add("hidden");
+    cardContainer.classList?.remove("hidden");
+  }
+};
+
 const loadeAllIssues = async () => {
+  manageSpinner(true);
   const res = await fetch(
     "https://phi-lab-server.vercel.app/api/v1/lab/issues",
   );
@@ -103,6 +116,7 @@ function displayAllIssue(data) {
         
         `;
   });
+  manageSpinner(false);
 }
 
 const loadSingleIssue = async (id) => {

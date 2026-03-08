@@ -64,13 +64,17 @@
     <section>
       <div class="max-w-6xl mx-auto py-12 space-y-4">
         <!-- all issues buttons and filter options will be here -->
-        <div class="p-6 bg-baise-100 rounded-lg shadow-md flex gap-4" id="filter-btns">
+        <div
+          class="p-6 bg-baise-100 rounded-lg shadow-md flex gap-4"
+          id="filter-btns"
+        >
           <button class="btn btn-primary" id="All">All Issues</button>
           <button class="btn" id="open">Open</button>
           <button class="btn" id="closed">Closed</button>
         </div>
 
         <!-- issues count and issues list will be here -->
+
         <div class="bg-baise-100 rounded-lg shadow-md">
           <div
             class="flex items-center justify-between p-6 border-b border-gray-200"
@@ -108,6 +112,12 @@
           >
             <!-- cards will be here  -->
           </div>
+          <section
+            id="loading-section"
+            class="flex items-center justify-center h-48 hidden"
+          >
+            <span class="loading loading-bars loading-xl"></span>
+          </section>
         </div>
       </div>
     </section>
@@ -115,9 +125,7 @@
     <!-- Open the modal using ID.showModal() method -->
     <dialog id="issue_modal" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box space-y-6">
-        <div id="modal-container" class="space-y-6">
-          
-        </div>
+        <div id="modal-container" class="space-y-6"></div>
       </div>
     </dialog>
 
